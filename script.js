@@ -40,7 +40,7 @@ function loadPage(pageName) {
     `;
     
     // Fetch page content
-    fetch(`pages/${pageName}.html`)
+    fetch(`/pages/${pageName}.html`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Page not found');
@@ -166,4 +166,5 @@ function showSuccess(elementId) {
             successMessage.style.display = 'none';
         }, 3000);
     }
+
 }
