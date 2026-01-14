@@ -83,7 +83,7 @@ function generateAllotment(event) {
         <div class="company-header allotment-header">
                 <div class="adress">
                     <p class="company-name"><b>SVI INFRA SOLUTIONS PVT. LTD</b></p>
-                    <p>Cell: <span>+91 73000 07643</span> | Email: <span>info@sviinfrasolutions.com</span></p>
+                    <p>Cell: <span>+91 9216014579</span> | Email: <span>info@sviinfrasolutions.com</span></p>
                     <p>Website: <span>www.sviinfrasolutions.in</span> | <span>www.sviinfrasolutions.com</span></p>
                     <p>Office Address : A-61 Sector 65 Noida Uttar Pradesh 201309</p>
                 </div>
@@ -317,3 +317,4 @@ function saveAllotmentAsImage() {
     }
 
 }
+
