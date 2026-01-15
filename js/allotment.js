@@ -155,8 +155,8 @@ Aangan  (Kishan Garh Renwal, Jaipur, Rajasthan). It is a perfect choice and you 
             </tr>
             <tr>
                 <td>2</td>
-                <td>${formatDate(addDays(bookingDate, 28))}</td>
-                <td>Within 28 days</td>
+                <td>${formatDate(addDays(bookingDate, 15))}</td>
+                <td>Within 15 days</td>
                 <td>20%</td>
                 <td>Rs. ${secondPayment}</td>
             </tr>
@@ -317,4 +317,5 @@ function saveAllotmentAsImage() {
     }
 
 }
+
 
