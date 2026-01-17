@@ -359,7 +359,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    font-size: 19px;
+    font-size: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     font-weight: 600;
 }
@@ -816,5 +816,6 @@ th {
     }
 
 }
+
 
 
