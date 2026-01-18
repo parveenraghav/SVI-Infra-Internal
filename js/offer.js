@@ -24,6 +24,7 @@ function generateOfferLetter(event) {
     const apptDate = document.getElementById('offerApptDate').value;
     const location = document.getElementById('offerLocation').value;
     const salary = document.getElementById('offerSalary').value;
+    const slab = document.getElementById('offerSlab').value;
     const target = document.getElementById('offerTarget').value;
 
     const formattedDate = (typeof formatDate === 'function' && date) ? formatDate(new Date(date)) : date;
@@ -70,7 +71,7 @@ function generateOfferLetter(event) {
             <strong>2.</strong> Your primary work location will be <strong>${location}</strong>. However, you may be required to travel or relocate as per company requirements.
         </p>
         <p class="marbottom"><strong>Salary & Benefits</strong><br>
-            <strong>3.</strong> Your total compensation will be ₹ <strong>${salary} (Target ${target} sq yrd) Per Month</strong>, which includes all statutory benefits as applicable. Additional performance-based incentives will be provided as per company policy.
+            <strong>3.</strong> Your total compensation will be ₹ <strong>${salary} (Target ${target} sq yrd) Per Month ${slab}</strong>, which includes all statutory benefits as applicable. Additional performance-based incentives will be provided as per company policy.
         </p>
         <p class="marbottom"><strong>Working Hours</strong><br>
                 <strong>4.</strong> Your working hours will be from 10:30 am to 6:30 pm, Days of the Week, Wednesday to Monday.
@@ -109,61 +110,77 @@ function generateOfferLetter(event) {
     document.getElementById('offerPreview').innerHTML = offerHTML;
     alert('Offer letter generated. You can download it as PDF or Image.');
 }
+// Download PDF using html2canvas
+function downloadWithHtml2Canvas() {
+    const element = document.getElementById('offerPreview');
 
-function downloadOfferPDF() {
-    try {
-        if (typeof html2canvas === 'undefined') {
-            alert('html2canvas library is not loaded. Please try another download method.');
-            return;
+    html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+    }).then(canvas => {
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const pageWidth = 210;
+        const pageHeight = 297;
+
+        const marginTop = 15;     // applied only after page 1
+        const marginBottom = 15;
+
+        const usableHeight = pageHeight - marginTop - marginBottom;
+
+        const imgWidth = pageWidth;
+
+        const pxPageHeight = Math.floor(canvas.width * usableHeight / imgWidth);
+
+        const pageCanvas = document.createElement('canvas');
+        const pageCtx = pageCanvas.getContext('2d');
+
+        let renderedHeight = 0;
+        let page = 0;
+
+        while (renderedHeight < canvas.height) {
+
+            pageCanvas.width = canvas.width;
+            pageCanvas.height = Math.min(pxPageHeight, canvas.height - renderedHeight);
+
+            pageCtx.clearRect(0, 0, pageCanvas.width, pageCanvas.height);
+            pageCtx.drawImage(
+                canvas,
+                0,
+                renderedHeight,
+                canvas.width,
+                pageCanvas.height,
+                0,
+                0,
+                canvas.width,
+                pageCanvas.height
+            );
+
+            if (page > 0) pdf.addPage();
+
+            const imgData = pageCanvas.toDataURL('image/jpeg', 1.0);
+            const pageImgHeight = (pageCanvas.height * imgWidth) / pageCanvas.width;
+
+            // ✅ KEY LINE: remove top padding on first page
+            const topPosition = page === 0 ? 0 : marginTop;
+
+            pdf.addImage(
+                imgData,
+                'JPEG',
+                0,
+                topPosition,
+                imgWidth,
+                pageImgHeight
+            );
+
+            renderedHeight += pxPageHeight;
+            page++;
         }
 
-        const element = document.getElementById('offerPreview');
-
-        html2canvas(element, {
-            scale: 2,
-            useCORS: true,
-            logging: false
-        }).then(canvas => {
-            // Add 50px padding around the captured canvas for PDF output
-            const padding = 50; // px
-            const paddedCanvas = document.createElement('canvas');
-            paddedCanvas.width = canvas.width + padding * 2;
-            paddedCanvas.height = canvas.height + padding * 2;
-            const ctx = paddedCanvas.getContext('2d');
-
-            // Fill background white and draw the original canvas with offset
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
-            ctx.drawImage(canvas, padding, padding);
-
-            const imgData = paddedCanvas.toDataURL('image/jpeg', 1.0);
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgWidth = 210; // A4 width in mm
-            const pageHeight = 297; // A4 height in mm
-            const imgHeight = paddedCanvas.height * imgWidth / paddedCanvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
-
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-
-            pdf.save('offer_letter.pdf');
-            showSuccess('offerSuccessMessage');
-        }).catch(error => {
-            alert('Error generating PDF with html2canvas: ' + error.message);
-            console.error(error);
-        });
-    } catch (error) {
-        alert('Error generating PDF: ' + error.message);
-        console.error(error);
-    }
+        pdf.save('allotment_letter.pdf');
+    });
 }
 
 function saveOfferAsImage() {
@@ -193,4 +210,5 @@ function saveOfferAsImage() {
         alert('Error generating image: ' + error.message);
         console.error(error);
     }
+
 }
