@@ -26,6 +26,10 @@ body {
     box-sizing: border-box;
 }
 
+.offer-output{
+    padding: 45px;
+}
+
 table tr {
     page-break-inside: avoid;
 }
@@ -816,6 +820,7 @@ th {
     }
 
 }
+
 
 
 
