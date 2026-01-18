@@ -113,6 +113,8 @@ function generateOfferLetter(event) {
 // Download PDF using html2canvas
 function downloadWithHtml2Canvas() {
     const element = document.getElementById('offerPreview');
+    const name = document.getElementById('offerName').value.trim() || 'client';
+    const safeName = name.replace(/[^a-zA-Z0-9]/g, '_');
 
     html2canvas(element, {
         scale: 2,
@@ -179,7 +181,7 @@ function downloadWithHtml2Canvas() {
             page++;
         }
 
-        pdf.save('allotment_letter.pdf');
+        pdf.save(`${safeName}_offer_letter.pdf`);
     });
 }
 
@@ -212,3 +214,4 @@ function saveOfferAsImage() {
     }
 
 }
+
