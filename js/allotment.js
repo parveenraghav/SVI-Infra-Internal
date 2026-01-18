@@ -45,6 +45,7 @@ function generateAllotment(event) {
     const advisorName = document.getElementById('advisorName').value;
     const advisorNumber = document.getElementById('advisorNumber').value;
     const bookingDate = new Date(document.getElementById('bookingDate').value);
+    const secondPaymentDays = document.getElementById('secondPaymentDays') ? Number(document.getElementById('secondPaymentDays').value) : 15;
     
     // Calculate total cost
     const basicCost = parseFloat(area) * parseFloat(bsp);
@@ -155,15 +156,15 @@ Aangan  (Kishan Garh Renwal, Jaipur, Rajasthan). It is a perfect choice and you 
             </tr>
             <tr>
                 <td>2</td>
-                <td>${formatDate(addDays(bookingDate, 15))}</td>
-                <td>Within 15 days</td>
+                <td>${formatDate(addDays(bookingDate, secondPaymentDays))}</td>
+                <td>${secondPaymentDays}</td>
                 <td>20%</td>
                 <td>Rs. ${secondPayment}</td>
             </tr>
             ${generateEMIRows(emiDates, emiAmount, numberOfEMIs, emiPercentage)}
         </table>
         <div class="note">
-            <p>Please transfer the initial amount of 10% (Rs. ${initialPayment}) by ${formatDate(addDays(bookingDate, 3))} to confirm allotment under ${projectName}, and the second instalment of 20% (Rs. ${secondPayment}) by ${formatDate(addDays(bookingDate, 15))}.</p>
+            <p>Please transfer the initial amount of 10% (Rs. ${initialPayment}) by ${formatDate(addDays(bookingDate, 3))} to confirm allotment under ${projectName}, and the second instalment of 20% (Rs. ${secondPayment}) by ${formatDate(addDays(bookingDate, secondPaymentDays))}.</p>
             <p>The remaining 70% will be paid as per the selected payment plan and is scheduled to complete by ${finalPaymentDate}.</p>
             <p>Note: Allotment under ${projectName} will only be confirmed upon receipt of the initial 10% (Rs. ${initialPayment}) by ${formatDate(addDays(bookingDate, 3))}.</p>
             <p>In the event you fail to make the payments as per the payment plan chosen by you, the allotment of these plots will be automatically cancelled.</p>
@@ -321,6 +322,7 @@ function saveAllotmentAsImage() {
     }
 
 }
+
 
 
 
