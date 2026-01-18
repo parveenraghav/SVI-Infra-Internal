@@ -1,7 +1,7 @@
 <div class="page-container">
     <div class="form-container">
         <h2><i class="fas fa-file-signature"></i> Offer Letter Generator</h2>
-        <form id="offerForm">
+        <form id="offerForm" onsubmit="return generateOfferLetter(event)">
             <div class="allotmentForm">
             <div class="form-group">
                 <label for="offerDate">Date:</label>
@@ -10,17 +10,17 @@
 
             <div class="form-group">
                 <label for="offerName">Name:</label>
-                <input type="text" id="offerName" placeholder="Enter name">
+                <input type="text" id="offerName" placeholder="Enter name" required>
             </div>
 
             <div class="form-group full-span">
                 <label for="offerAddress">Address:</label>
-                <textarea id="offerAddress" placeholder="Enter address"></textarea>
+                <textarea id="offerAddress" placeholder="Enter address" required></textarea>
             </div>
 
                 <div class="form-group">
                     <label for="offerMobile">Mobile No:</label>
-                    <input type="tel" id="offerMobile" placeholder="Primary mobile">
+                    <input type="tel" id="offerMobile" placeholder="Primary mobile" required>
                 </div>
 
                 <div class="form-group">
@@ -30,53 +30,53 @@
 
                 <div class="form-group">
                     <label for="offerEmail">Email ID:</label>
-                    <input type="email" id="offerEmail" placeholder="Email address">
+                    <input type="email" id="offerEmail" placeholder="Email address" required>
                 </div>
 
             <div class="form-group">
                 <label for="offerDesignation">Designation:</label>
-                <input type="text" id="offerDesignation" placeholder="Offered designation">
+                <input type="text" id="offerDesignation" placeholder="Offered designation" required>
             </div>
 
             <div class="form-group">
                 <label for="offerDepartment">Department:</label>
-                <input type="text" id="offerDepartment" placeholder="Department">
+                <input type="text" id="offerDepartment" placeholder="Department" required>
             </div>
 
             <div class="form-group">
                 <label for="offerReporting">Reporting To:</label>
-                <input type="text" id="offerReporting" placeholder="Reporting person">
+                <input type="text" id="offerReporting" placeholder="Reporting person" required>
             </div>
 
             <div class="form-group">
                 <label for="offerApptDate">Appointment Date:</label>
-                <input type="date" id="offerApptDate">
+                <input type="date" id="offerApptDate" required>
             </div>
 
             <div class="form-group">
                 <label for="offerLocation">Location of Posting:</label>
-                <input type="text" id="offerLocation" placeholder="Location">
+                <input type="text" id="offerLocation" placeholder="Location" required>
             </div>
 
             <div class="form-group">
                 <label for="offerSalary">Salary (CTC) Per Month:</label>
-                <input type="number" id="offerSalary" placeholder="Enter salary">
+                <input type="number" id="offerSalary" placeholder="Enter salary" required>
             </div>
 
             <div class="form-group">
                 <label for="offerTarget">Target:</label>
-                <input type="text" id="offerTarget" placeholder="Target (optional)">
+                <input type="text" id="offerTarget" placeholder="Target (optional)" required>
             </div>
 
             <div class="form-group">
                 <label for="offerSlab">Offer Slab Per Month:</label>
-                <input type="number" id="offerSlab" placeholder="Enter Slab">
+                <input type="number" id="offerSlab" placeholder="Enter Slab" required>
             </div>
 
             <div class="form-group full-span">
-                <button type="button" onclick="generateOfferLetter(event)">
-                    <i class="fas fa-file-alt"></i> Generate Offer Letter
-                </button>
+                <button type="submit">
+                <i class="fas fa-sync-alt"></i> Generate Offer Letter
+            </button>
             </div>
             </div>
         </form>
@@ -108,3 +108,4 @@
     </div>
 
 </div>
+
